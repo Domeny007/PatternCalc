@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  PatternCalc
-//
-//  Created by Ildar Zalyalov on 23.02.2018.
-//  Copyright © 2018 iOSMobileLab. All rights reserved.
-//
 
 import UIKit
 import CoreData
@@ -14,11 +7,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        // MARK: - initialising calculatorViewController -
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let presenter = CalculatorViewPresenter()
+        let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! CalculatorViewController
+        let calculating = CalculatingMethods()
+        
+        viewController.presenter = presenter
+        presenter.view = viewController
+        presenter.calculating = calculating
+        let rootViewController = viewController
+        window?.rootViewController = rootViewController
+        window?.makeKeyAndVisible()
         return true
     }
+    
+    
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
